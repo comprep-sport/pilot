@@ -1,4 +1,5 @@
-# Script to analyze the pilot data of the project
+# Script to perform a simulation to estimate the precision of the primary
+# outcome for the project:
 # "Computational Reproducibility in Sports Science"
 # date: 05/2025
 # author: Simon Nolte
