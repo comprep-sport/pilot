@@ -9,8 +9,8 @@ library(ggplot2) # visualization
 library(dplyr)   # data wrangling
 
 # read pilot data
-inc <- read.csv2("pilot_inclusion.csv")
-pc <- read.csv2("pilot_pc.csv")
+inc <- read.csv2("data/pilot_inclusion.csv")
+pc <- read.csv2("data/pilot_pc.csv")
 
 # number of articles screened
 nrow(inc)
@@ -54,7 +54,7 @@ p <- ggplot(ct, aes(x = count)) +
     panel.grid.major.x = element_blank(),
     panel.grid.minor.x = element_blank()
   )
-ggsave("pc_count.png", p, dpi = 300, width = 5, height = 3.5, bg = "white")
+ggsave("plots/pc_count.png", p, dpi = 300, width = 5, height = 3.5, bg = "white")
 
 # fit a negative binomial distribution on the raw count data
 fit <- fitdistr(count, densfun = "negative binomial")$estimate
@@ -74,7 +74,7 @@ pmf <- data.frame(count = rnbinom(100000, size = 1.5, prob = 0.25)) |>
 p2 <- ggplot(ct, aes(x = count)) +
   geom_histogram(binwidth = 1, color = "black", fill = "grey80") +
   geom_line(data = pmf, aes(y = prob * nrow(ct)), 
-            color = "darkred", size = 1.2) +
+            color = "darkred", linewidth = 1.2) +
   scale_x_continuous(
     name = "Number of Primary Claims per Study",
     limits = c(-1,20)
@@ -85,4 +85,4 @@ p2 <- ggplot(ct, aes(x = count)) +
     panel.grid.major.x = element_blank(),
     panel.grid.minor.x = element_blank()
   )
-ggsave("pc_count_overlay.png", p2, dpi = 300, width = 5, height = 3.5, bg = "white")
+ggsave("plots/pc_count_overlay.png", p2, dpi = 300, width = 5, height = 3.5, bg = "white")

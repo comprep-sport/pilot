@@ -8,6 +8,7 @@
 library(lme4)       # model fit
 library(DescTools)  # binomial CI
 library(dplyr)      # data wrangling
+library(ggplot2)    # visualization
 
 # default for study level reproducibility is beta(2, 2)
 sim <- function(n = 50, a = 2, b = 2, pooled = "partial") {
@@ -67,9 +68,24 @@ set.seed(4711)
 # run 1000 simulations (uncomment to run!)
 #sim_results <- purrr::map_dfr(1:1000, ~ sim(pooled = "partial"))
 # save and load simulation results (uncomment to run!)
-#save(sim_results, file = "sim_results.Rda")
-load("sim_results.Rda")
+#save(sim_results, file = "data/sim_results.Rda")
+load("data/sim_results.Rda")
 # mean values for parameter estimate and CI bounds
 mean(sim_results$x)
 mean(sim_results$ci_lower)
 mean(sim_results$ci_up)
+
+# calculate CI width
+sim_results$width <- sim_results$ci_upper - sim_results$ci_lower
+mean(sim_results$width)
+# plot CI width
+p_sim <- ggplot(sim_results, aes(x = width)) +
+  geom_histogram(binwidth = 0.01, color = "black", fill = "grey80") +
+  scale_x_continuous(name = "95% confidence interval width") +
+  scale_y_continuous(name = "Count", expand = c(0.01,0.01)) +
+  theme_minimal() +
+  theme(
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank()
+  )
+ggsave("plots/sim_results.png", plot = p_sim, dpi = 300, width = 5, height = 3.5, bg = "white")  
