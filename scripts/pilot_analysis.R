@@ -9,8 +9,8 @@ library(ggplot2) # visualization
 library(dplyr)   # data wrangling
 
 # read pilot data
-inc <- read.csv2("data/pilot_inclusion.csv")
-pc <- read.csv2("data/pilot_pc.csv")
+inc <- read.csv("data/pilot_inclusion.csv")
+pc <- read.csv("data/pilot_pc.csv")
 
 # number of articles screened
 nrow(inc)
