@@ -19,6 +19,10 @@ included articles during the pilot.
 - [pilot_analysis.R](scripts/pilot_analysis.R): Analysis code for the pilot.
 - [precision_estimation.R](scripts/precision_estimation.R): Analysis code for 
 the simulation for precision estimation.
+- [pilot_quantities.R](scripts/precision_estimation.R): Additional analysis code 
+for the quantities extracted during the pilot. This covers aspects such as how
+often certain types of values were reported, which is used to inform the 
+determination procedure for the number related to a primary claim.
 
 ## Figures
 
